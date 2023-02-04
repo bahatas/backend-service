@@ -23,19 +23,14 @@ public class Config {
 
     /**
      * The router listens for traffic on the /hello path and returns the value provided by our reactive handler class.
+     *
      * @param greetingHandler
      * @return
      */
     @Bean
     public RouterFunction<ServerResponse> routeRequests(GreetingHandler greetingHandler) {
 
-        return RouterFunctions
-                .route
-                        (GET("/hello")
-                                        .and
-                                                (accept
-                                                        (MediaType.APPLICATION_JSON)),
-                                greetingHandler::sayHello);
+        return RouterFunctions.route(GET("/hello").and(accept(MediaType.APPLICATION_JSON)), greetingHandler::sayHello);
 
     }
 }

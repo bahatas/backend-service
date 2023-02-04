@@ -1,6 +1,7 @@
 package uk.co.ii.financialtoolsservice.demo.webclient;
 
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,17 +22,24 @@ public class DemoController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Customer>> getAllCustomers(){
+    public ResponseEntity<List<Customer>> getAllCustomers() {
 
         List<Customer> allCustomer = customerService.getAllCustomer();
         return ResponseEntity.ok(allCustomer);
     }
 
-    @GetMapping("/stream-all")
-    public ResponseEntity<Flux<Customer>> getAllCustomersAsStream(){
+    @GetMapping(value = "/stream-all",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public ResponseEntity<Flux<Customer>> getAllCustomersAsStream() {
 
         Flux<Customer> allCustomerFlux = customerService.getAllCustomerFlux();
         return ResponseEntity.ok(allCustomerFlux);
+    }
+
+    @GetMapping(value = "/stream-all-2",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<Customer> getAllCustomersAsStream2() {
+
+        Flux<Customer> allCustomerFlux = customerService.getAllCustomerFlux();
+        return allCustomerFlux;
     }
 
 }

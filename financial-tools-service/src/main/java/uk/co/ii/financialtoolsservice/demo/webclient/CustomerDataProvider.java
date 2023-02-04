@@ -36,7 +36,7 @@ public class CustomerDataProvider {
     }
 
     public Flux<Customer> getCustomerStream() {
-        Flux<Customer> map = Flux.range(1, 20)
+        Flux<Customer> map = Flux.range(1, 10)
                 .delayElements(Duration.of(1, ChronoUnit.SECONDS))
                 .doOnNext(i -> System.out.println("processing count in stream flow: " + i))
                 .map(i -> Customer.builder().name(faker.name().firstName()).lastName(faker.name().lastName()).phoneNumber(faker.phoneNumber().phoneNumber()).build());
