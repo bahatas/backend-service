@@ -1,6 +1,7 @@
 package uk.co.ii.financialtoolsservice.demo.webclient;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,10 +11,10 @@ import reactor.core.publisher.Flux;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/customers")
 public class DemoController {
-
 
     CustomerService customerService;
 
@@ -28,11 +29,12 @@ public class DemoController {
         return ResponseEntity.ok(allCustomer);
     }
 
-    @GetMapping(value = "/stream-all",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<Flux<Customer>> getAllCustomersAsStream() {
+    @GetMapping(value = "/stream-all",produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flux<Customer> getAllCustomersAsStream() {
 
-        Flux<Customer> allCustomerFlux = customerService.getAllCustomerFlux();
-        return ResponseEntity.ok(allCustomerFlux);
+      return
+              customerService.getAllCustomerFlux().doOnComplete(()->log.info("Completed"));
+
     }
 
     @GetMapping(value = "/stream-all-2",produces = MediaType.TEXT_EVENT_STREAM_VALUE)

@@ -9,6 +9,7 @@ import reactor.core.publisher.Flux;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -31,7 +32,7 @@ public class CustomerDataProvider {
         return IntStream.rangeClosed(1, 10)
                 .peek(CustomerDataProvider::sleepExecution)
                 .peek(i -> System.out.println("processing Count :" + i))
-                .mapToObj(i -> Customer.builder().name(faker.name().firstName()).lastName(faker.name().lastName()).phoneNumber(faker.phoneNumber().phoneNumber()).build())
+                .mapToObj(i -> Customer.builder().id(UUID.randomUUID()).name(faker.name().firstName()).lastName(faker.name().lastName()).phoneNumber(faker.phoneNumber().phoneNumber()).build())
                 .collect(Collectors.toList());
     }
 
@@ -39,9 +40,15 @@ public class CustomerDataProvider {
         Flux<Customer> map = Flux.range(1, 10)
                 .delayElements(Duration.of(1, ChronoUnit.SECONDS))
                 .doOnNext(i -> System.out.println("processing count in stream flow: " + i))
-                .map(i -> Customer.builder().name(faker.name().firstName()).lastName(faker.name().lastName()).phoneNumber(faker.phoneNumber().phoneNumber()).build());
-
+                .map(i -> Customer.builder().id(UUID.randomUUID()).name(faker.name().firstName()).lastName(faker.name().lastName()).phoneNumber(faker.phoneNumber().phoneNumber()).build());
         return map;
     }
 
+    public Flux<Customer> getCustomerList() {
+        return Flux.range(1, 50)
+                .delayElements(Duration.of(1, ChronoUnit.SECONDS))
+                .doOnNext(i -> System.out.println("processing Count :" + i))
+                .map(i -> Customer.builder().id(UUID.randomUUID()).name(faker.name().firstName()).lastName(faker.name().lastName()).phoneNumber(faker.phoneNumber().phoneNumber()).build());
+
+    }
 }
