@@ -24,14 +24,14 @@ public class Controller {
 
     @GetMapping("/hello")
     public Mono<Greeting> sayHello() {
-//        Mono<Greeting> hello = webClientBuilder.build()
-//                .get()
-//                .uri("hello")
-//                .accept(MediaType.APPLICATION_JSON)
-//                .retrieve()
-//                .bodyToMono(Greeting.class);
-//
-//        return hello;
+        Mono<Greeting> hello = webClientBuilder.build()
+                .get()
+                .uri("hello")
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(Greeting.class);
+
+
 
         return null;
 

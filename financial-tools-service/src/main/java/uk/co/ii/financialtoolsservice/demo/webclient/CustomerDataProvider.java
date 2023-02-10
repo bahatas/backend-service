@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
 @Component
 public class CustomerDataProvider {
 
-    Faker faker = new Faker();
+    private static Faker faker = new Faker();
 
 
     private static void sleepExecution(int i) {
@@ -32,7 +32,14 @@ public class CustomerDataProvider {
         return IntStream.rangeClosed(1, 10)
                 .peek(CustomerDataProvider::sleepExecution)
                 .peek(i -> System.out.println("processing Count :" + i))
-                .mapToObj(i -> Customer.builder().id(UUID.randomUUID()).name(faker.name().firstName()).lastName(faker.name().lastName()).phoneNumber(faker.phoneNumber().phoneNumber()).build())
+                .mapToObj(i -> Customer.builder()
+                        .id(UUID.randomUUID())
+                        .name(faker.name()
+                                .firstName())
+                        .lastName(faker.name()
+                                .lastName())
+                        .phoneNumber(faker.phoneNumber().phoneNumber())
+                        .build())
                 .collect(Collectors.toList());
     }
 

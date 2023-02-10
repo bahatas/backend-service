@@ -29,15 +29,14 @@ public class DemoController {
         return ResponseEntity.ok(allCustomer);
     }
 
-    @GetMapping(value = "/stream-all",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/stream-all", produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<Customer> getAllCustomersAsStream() {
 
-      return
-              customerService.getAllCustomerFlux().doOnComplete(()->log.info("Completed"));
+        return customerService.getAllCustomerFlux().doOnComplete(() -> log.info("Completed"));
 
     }
 
-    @GetMapping(value = "/stream-all-2",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/stream-all-2", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<Customer> getAllCustomersAsStream2() {
 
         Flux<Customer> allCustomerFlux = customerService.getAllCustomerFlux();
