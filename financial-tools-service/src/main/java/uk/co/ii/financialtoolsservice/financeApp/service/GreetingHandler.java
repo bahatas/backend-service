@@ -1,7 +1,7 @@
-package uk.co.ii.financialtoolsservice.service;
+package uk.co.ii.financialtoolsservice.financeApp.service;
 
 
-import uk.co.ii.financialtoolsservice.dto.Greeting;
+import uk.co.ii.financialtoolsservice.financeApp.dto.Greeting;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;

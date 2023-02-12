@@ -1,4 +1,4 @@
-package uk.co.ii.financialtoolsservice.dto;
+package uk.co.ii.financialtoolsservice.financeApp.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

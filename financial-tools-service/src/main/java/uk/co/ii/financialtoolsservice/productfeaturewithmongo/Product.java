@@ -1,6 +1,7 @@
 package uk.co.ii.financialtoolsservice.productfeaturewithmongo;
 
 import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -9,10 +10,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collation = "products")
+@Document(collection = "products")    // this is not collation
+
 public class Product {
 
 
+    @Id
     private String id;
     private String name;
     private int qty;
